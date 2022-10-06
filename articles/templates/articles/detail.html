@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div>
+        <a href="{% url 'articles:board' %}">게시판으로 돌아가기</a>
+    </div>
+    <div>글번호: {{ article.id }}</div>
+    <div>글제목: {{ article.title }}</div>
+    <div>글내용: {{ article.content }}</div>
+    <div>댓글 목록</div>
+    <ul>
+        {% for comment in comments %}
+            <li>{{ comment.user }} - {{ comment.content }}</li>
+        {% endfor %}
+    </ul>
+    <hr>
+    {% if user == article.user %}
+        <div>
+            <form action="{% url 'articles:update_page' article.pk %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-secondary">수정</button>
+            </form>
+        </div>
+        <div>
+            <form action="{% url 'articles:delete' article.pk %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">삭제</button>
+            </form>
+        </div>
+    {% endif %}
+    <div>
+        <form action="{% url 'articles:comments_create' article.pk %}" method="POST">
+            {% csrf_token %}
+            {{ comment_form }}
+            <input type="submit">
+        </form>
+    </div>
+{% endblock  %}

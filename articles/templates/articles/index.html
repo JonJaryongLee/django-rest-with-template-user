@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>hello world</h1>
+    <div>내 이름은 이자룡!</div>
+    <div>
+        <a href="{% url 'articles:about' %}">about</a>
+    </div>
+    <div>
+        <a href="{% url 'articles:board' %}">board</a>
+    </div>
+{% endblock  %}
